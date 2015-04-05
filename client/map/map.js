@@ -20,6 +20,15 @@ Template.map.onCreated(function() {
             });
 
         });
+        navigator.geolocation.watchPosition(function (position) {
+          Session.set("lat", new Date());
+          var lat = position.coords.latitude;
+          var lng = position.coords.longtitude;
+          var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(lat, lng),
+            map: map.instance
+          });
+        });
         // Add a marker to the map once it's ready
 
     });
@@ -40,5 +49,16 @@ Template.map.helpers({
                 zoom: 10
             };
         }
+    },
+    lat: function () {
+      return Session.get("lat");
     }
+});
+
+Template.map.events({
+  'click button': function() {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      Session.set("lat", position.coords.latitude);
+    });
+  }
 });
