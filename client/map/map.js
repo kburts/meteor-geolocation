@@ -10,24 +10,36 @@ Meteor.startup(function() {
 Template.map.onCreated(function() {
     // We can use the `ready` callback to interact with the map API once the map is ready.
     GoogleMaps.ready('exampleMap', function(map) {
+        // Initial setup of map.
         navigator.geolocation.getCurrentPosition(function (position) {
             center = position;
-            console.log(center);
+            console.log("center: ", center);
             map.instance.setCenter(new google.maps.LatLng(center.coords.latitude, center.coords.longitude));
-            var marker = new google.maps.Marker({
-                position: map.options.center,
-                map: map.instance
+        });
+        // Check for location updates.
+        navigator.geolocation.watchPosition(function (position) {
+            Session.set("updated", new Date());
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            Routes.insert({
+                lat: lat,
+                lng: lng
             });
 
-        });
-        navigator.geolocation.watchPosition(function (position) {
-          Session.set("lat", new Date());
-          var lat = position.coords.latitude;
-          var lng = position.coords.longtitude;
-          var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(lat, lng),
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(lat, lng),
             map: map.instance
-          });
+            });
+            Routes.find().observe({
+                added: function (point) {
+                    var marker = new google.maps.Marker({
+                        animation: google.maps.Animation.DROP,
+                        position: new google.maps.LatLng(point.lat, point.lng),
+                        map: map.instance,
+                        id: point.id
+                    })
+                }
+            })
         });
         // Add a marker to the map once it's ready
 
@@ -43,22 +55,21 @@ Template.map.helpers({
 
             //center = new google.maps.LatLng(Session.get("center").coords.latitude, Session.get("center").coords.longitude);
             return {
-                center: new google.maps.LatLng(-37.8136, 144.9631),
-                //center: new google.maps.LatLng(Session.get("center").coords.latitude, Session.get("center").coords.longitude),
-                //center: new google.maps.LatLng(center.coords.latitude, center.coords.longitude),
+                center: new google.maps.LatLng(49.2380381, -123.1865521),
                 zoom: 10
             };
         }
     },
-    lat: function () {
-      return Session.get("lat");
+    updated: function () {
+      return Session.get("updated");
     }
 });
-
+/*
 Template.map.events({
   'click button': function() {
     navigator.geolocation.getCurrentPosition(function (position) {
-      Session.set("lat", position.coords.latitude);
+      Session.set("updated", position.coords.latitude);
     });
   }
 });
+*/
