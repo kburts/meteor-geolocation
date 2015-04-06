@@ -23,11 +23,12 @@ Template.map.onCreated(function() {
         navigator.geolocation.watchPosition(function (position) {
           Session.set("lat", new Date());
           var lat = position.coords.latitude;
-          var lng = position.coords.longtitude;
+          var lng = position.coords.longitude;
           var marker = new google.maps.Marker({
             position: new google.maps.LatLng(lat, lng),
             map: map.instance
           });
+          console.log("adding marker: ", marker);
         });
         // Add a marker to the map once it's ready
 
