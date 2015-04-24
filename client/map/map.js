@@ -6,6 +6,15 @@ Meteor.startup(function() {
     GoogleMaps.load();
 });
 
+/*
+ updatePosition(client) calls updateUser(both) to update the database.
+ updatePosition uses the navigator.geolocation API to get your current position.
+ */
+function updatePosition () {
+    navigator.geolocation.getCurrentPosition(function (position) {
+        Meteor.call("updateUser", {position: position});
+    });
+};
 
 Template.map.onCreated(function() {
     // We can use the `ready` callback to interact with the map API once the map is ready.
@@ -14,8 +23,15 @@ Template.map.onCreated(function() {
         navigator.geolocation.getCurrentPosition(function (position) {
             center = position;
             console.log("center: ", center);
+            //Session.set("location", position.coords.latitude, position.coords.longitude);
             map.instance.setCenter(new google.maps.LatLng(center.coords.latitude, center.coords.longitude));
         });
+        // Update position on map
+        Meteor.setInterval(function () {
+            console.log("intervaling!");
+            updatePosition();
+
+        }, 5000);
         // Check for location updates.
         navigator.geolocation.watchPosition(function (position) {
             Session.set("updated", new Date());
@@ -64,12 +80,3 @@ Template.map.helpers({
       return Session.get("updated");
     }
 });
-/*
-Template.map.events({
-  'click button': function() {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      Session.set("updated", position.coords.latitude);
-    });
-  }
-});
-*/
