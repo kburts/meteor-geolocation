@@ -12,3 +12,5 @@ accounts-base
 accounts-ui
 accounts-password
 mdg:geolocation
+zeroasterisk:cordova-geolocation-background
+iron:router

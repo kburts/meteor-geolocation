@@ -33,7 +33,7 @@ Template.map.onCreated(function() {
             Routes.find().observe({
                 added: function (point) {
                     var marker = new google.maps.Marker({
-                        animation: google.maps.Animation.DROP,
+                        //animation: google.maps.Animation.DROP,
                         position: new google.maps.LatLng(point.lat, point.lng),
                         map: map.instance,
                         id: point.id
