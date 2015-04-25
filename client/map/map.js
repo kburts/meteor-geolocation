@@ -13,26 +13,40 @@ Meteor.startup(function() {
 function updatePosition () {
     navigator.geolocation.getCurrentPosition(function (position) {
         Meteor.call("updateUser", {position: position});
+        console.log("intervaling");
+        //Session.set("location", [position.coords.latitude, position.coords.longitude]);
+        Session.set("lat", position.coords.latitude + Math.random());
+        Session.set("lng", position.coords.longitude + Math.random());
     });
-};
-
+}
 Template.map.onCreated(function() {
-    // We can use the `ready` callback to interact with the map API once the map is ready.
+    // Object to store all the markers.
+    var markers = {};
+
+
     GoogleMaps.ready('exampleMap', function(map) {
         // Initial setup of map.
         navigator.geolocation.getCurrentPosition(function (position) {
             center = position;
             console.log("center: ", center);
-            //Session.set("location", position.coords.latitude, position.coords.longitude);
             map.instance.setCenter(new google.maps.LatLng(center.coords.latitude, center.coords.longitude));
         });
         // Update position on map
         Meteor.setInterval(function () {
             console.log("intervaling!");
             updatePosition();
+            console.log(Session.get("location"));
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(Session.get("lat"), Session.get("lng")),
+                map: map.instance
+            });
+            //markers.current = new google.maps.Marker({
+            //    position: Session.get("location")
+            //});
 
         }, 5000);
         // Check for location updates.
+        /*
         navigator.geolocation.watchPosition(function (position) {
             Session.set("updated", new Date());
             var lat = position.coords.latitude;
@@ -57,6 +71,7 @@ Template.map.onCreated(function() {
                 }
             })
         });
+        */
         // Add a marker to the map once it's ready
 
     });
@@ -71,7 +86,7 @@ Template.map.helpers({
 
             //center = new google.maps.LatLng(Session.get("center").coords.latitude, Session.get("center").coords.longitude);
             return {
-                center: new google.maps.LatLng(49.2380381, -123.1865521),
+                center: new google.maps.LatLng(49.0, -123.0),
                 zoom: 10
             };
         }
