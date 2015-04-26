@@ -12,7 +12,7 @@ Meteor.startup(function() {
  */
 function updatePosition () {
     navigator.geolocation.getCurrentPosition(function (position) {
-        Meteor.call("updateUser", {position: position});
+        Meteor.call("updatePerson", {position: position});
         console.log("intervaling");
         //Session.set("location", [position.coords.latitude, position.coords.longitude]);
         Session.set("lat", position.coords.latitude + Math.random());
@@ -22,6 +22,9 @@ function updatePosition () {
 Template.map.onCreated(function() {
     // Object to store all the markers.
     var markers = {};
+
+    // Create a new Person on the map if there isn't one for the ID already.
+    Meteor.call("createPerson");
 
 
     GoogleMaps.ready('exampleMap', function(map) {
@@ -44,7 +47,7 @@ Template.map.onCreated(function() {
             //    position: Session.get("location")
             //});
 
-        }, 5000);
+        }, 50000);
         // Check for location updates.
         /*
         navigator.geolocation.watchPosition(function (position) {
