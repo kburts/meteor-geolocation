@@ -13,15 +13,13 @@ Meteor.startup(function () {
 function updatePosition() {
     navigator.geolocation.getCurrentPosition(function (position) {
         Meteor.call("updatePerson", {position: position});
-        console.log("intervaling");
-        //Session.set("location", [position.coords.latitude, position.coords.longitude]);
         Session.set("lat", position.coords.latitude + Math.random());
         Session.set("lng", position.coords.longitude + Math.random());
     });
 }
 Template.map.onCreated(function () {
     // Object to store all the markers.
-    var markers = {};
+    var markers = [];
 
     // Create a new Person on the map if there isn't one for the ID already.
     Meteor.call("createPerson");
@@ -35,16 +33,23 @@ Template.map.onCreated(function () {
             map.instance.setCenter(new google.maps.LatLng(center.coords.latitude, center.coords.longitude));
         });
 
-        // Update position on map
+        // Update position in database from geolocation (on interval.).
         Meteor.setInterval(function () {
-            console.log("intervaling!");
+            console.log("updating Person's position.");
             updatePosition();
-            console.log(Session.get("location"));
-            var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(Session.get("lat"), Session.get("lng")),
-                map: map.instance
-            });
-        }, 50000);
+            markers.push(new google.maps.Marker({
+                    position: new google.maps.LatLng(Session.get("lat"), Session.get("lng")),
+                    map: map.instance
+                })
+            );
+            if (markers.length > 2) {
+                for (var i = 0; i < markers.length; i ++) {
+                    markers[i].setMap(null);
+                }
+                markers.length = 0;
+                console.log("clearing array.");
+            }
+        }, 1000);
     });
 });
 
