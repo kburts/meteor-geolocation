@@ -27,6 +27,7 @@ function updatePosition() {
             Meteor.call("updatePerson", {position: position});
         }, function (error) {
             console.log("Error getting your geolocation!");
+            console.log(error)
         },
         {timeout: 10000}
     );
