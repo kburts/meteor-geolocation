@@ -12,8 +12,8 @@
     <h3>Current People</h3>
     {{# each people}}
       <ul>
-        <li>{{ user.username }}</li>
-        <li>updated: {{ updated }}</li>
+        <li><img src="{{ getMarkerImage color }}" alt="marker {{ getMarkerImage color }}">{{ user.username }}</li>
+        <li>updated: {{ livestamp updated }}</li>
         <li>location: {{location.coords.latitude }}, {{ location.coords.longitude }}</li>
       </ul>
     {{/ each }}

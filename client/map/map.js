@@ -33,6 +33,16 @@ function updatePosition() {
     );
 }
 
+
+/*
+  Create a url to a colored marker.
+  @param color: color (should be in format #ff00ff)
+ */
+function createMarkerColor(color) {
+    var url = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|";
+    return url + color.replace("#", "");
+}
+
 /*
   Create a new google maps marker, and return it.
   All arguments should be passed in one large object.
@@ -55,7 +65,7 @@ function createMarker(kwargs) {
     }
     if (_.has(kwargs, "marker") && _.has(kwargs, "color")) {
         var color = kwargs.color.replace("#", "");
-        marker['icon'] = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + color;
+        marker['icon'] = createMarkerColor(color);
     }
     if (_.has(kwargs, "shadow"))
         marker['shadow'] = "http://chart.apis.google.com/chart?chst=d_map_pin_shadow";
@@ -142,5 +152,12 @@ Template.map.helpers({
     },
     people: function () {
         return People.find();
+    },
+    getMarkerImage: function (color) {
+        return createMarkerColor(color);
     }
+    /*,
+    updatedAgo: function (date) {
+        return moment(date).fromNow();
+    }*/
 });
