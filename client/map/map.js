@@ -27,6 +27,7 @@ function updatePosition() {
             Meteor.call("updatePerson", {position: position});
         }, function (error) {
             console.log("Error getting your geolocation!");
+            console.log(error)
         },
         {timeout: 10000}
     );
@@ -75,7 +76,7 @@ Template.map.onCreated(function () {
                  actually be pretty useful for the time being with latency compensation.
                  */
                 // First time using underscoreJS. - pretty stoked, works as expected.
-                if (!_.has(fields, "location"))
+                if (!_.has(fields, "location") || !_.has(fields, "map"))
                     return false;
                 var loc = fields.location.coords;
                 markers[id].setMap(null);
@@ -103,7 +104,7 @@ Template.map.helpers({
             };
         }
     },
-    updated: function () {
-        return Session.get("updated");
+    people: function () {
+        return People.find();
     }
 });

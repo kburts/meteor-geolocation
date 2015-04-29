@@ -11,6 +11,9 @@ Accounts.onCreateUser(function (options, user) {
             _id: user._id,
             username: user.username
         },
+        color: RandomColor({
+            luminosity: 'dark'
+        }),
         updated: new Date()
     });
     return user;

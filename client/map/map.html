@@ -1,12 +1,21 @@
 <template name="map">
-    <div>
-        <h2>Map goes here</h2>
-        {{> loginButtons}}
-        <button class="map-button">Map button</button>
-        <div class="loc">last updated: {{ updated }}</div>
-        <div class="map-container">
-            {{> googleMap name="exampleMap" options=exampleMapOptions}}
-        </div>
-        <div id="testmap"></div>
+  <div>
+    <div class="col-md-8 col-sm-12">
+      <div class="map-container">
+        {{> googleMap name="exampleMap" options=exampleMapOptions}}
+      </div>
+      <div id="testmap"></div>
     </div>
+
+  </div>
+  <div class="col-md-4 col-sm-12">
+    <h3>Current People</h3>
+    {{# each people}}
+      <ul>
+        <li>{{ user.username }}</li>
+        <li>updated: {{ updated }}</li>
+        <li>location: {{location.coords.latitude }}, {{ location.coords.longitude }}</li>
+      </ul>
+    {{/ each }}
+  </div>
 </template>
