@@ -12,8 +12,8 @@ accounts-base
 accounts-ui
 accounts-password
 mdg:geolocation
-zeroasterisk:cordova-geolocation-background
 iron:router
 fourseven:scss
 reywood:bootstrap3-sass
 kburts:randomcolor
+momentjs:moment

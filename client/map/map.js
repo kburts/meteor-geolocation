@@ -8,7 +8,7 @@ Meteor.startup(function () {
 
 /*
  Set center of map to current location.
- @param: google.maps.map object.
+ @param: google.maps.Map object.
  */
 function setCenter(map) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -33,6 +33,35 @@ function updatePosition() {
     );
 }
 
+/*
+  Create a new google maps marker, and return it.
+  All arguments should be passed in one large object.
+  eg. createMarker({map: map, latlng: loc, color: "#ff00ff"});
+  @param map: google.maps.Map object
+  @param coords: Geolocation.location.coords object
+  @param optional args
+    - color, color of marker
+    - marker, string url to marker image
+        eg. http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2| (without color hex code)
+    - shadow, string url to shadow image
+ */
+function createMarker(kwargs) {
+    var marker = {
+        map: kwargs.map.instance
+    };
+    if (_.has(kwargs, "coords")) {
+        var latlng = new google.maps.LatLng(kwargs.coords.latitude, kwargs.coords.longitude);
+        marker["position"] = latlng;
+    }
+    if (_.has(kwargs, "marker") && _.has(kwargs, "color")) {
+        var color = kwargs.color.replace("#", "");
+        marker['icon'] = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + color;
+    }
+    if (_.has(kwargs, "shadow"))
+        marker['shadow'] = "http://chart.apis.google.com/chart?chst=d_map_pin_shadow";
+    return new google.maps.Marker(marker);
+}
+
 Template.map.onCreated(function () {
     // Object to store all the markers.
     // format is _id: point - each user gets a marker.
@@ -54,18 +83,24 @@ Template.map.onCreated(function () {
 
         People.find().observeChanges({
             added: function (id, document) {
-                //console.log(document.location.coords);
-                //console.log("added");
-                //console.log(document);
-                if (!_.has(document, "location"))
+                if (!_.has(document, "location") || !_.has(document.location, "coords")) {
+                    // case for new users.
+                    // New users don't have a location, so you need to make a marker without it and add it in later.
+                    updatePosition();
+                    markers[id] = createMarker({
+                        map: map,
+                        marker: true,
+                        color: document.color
+                    });
                     return false;
+                }
+
                 var loc = document.location.coords;
-                markers[id] = new google.maps.Marker({
-                    position: new google.maps.LatLng(
-                        loc.latitude,
-                        loc.longitude
-                    ),
-                    map: map.instance
+                markers[id] = createMarker({
+                    map: map,
+                    coords: loc,
+                    marker: true,
+                    color: document.color
                 });
             },
             changed: function (id, fields) {
@@ -76,17 +111,18 @@ Template.map.onCreated(function () {
                  actually be pretty useful for the time being with latency compensation.
                  */
                 // First time using underscoreJS. - pretty stoked, works as expected.
-                if (!_.has(fields, "location") || !_.has(fields, "map"))
+                if (!_.has(fields, "location"))
                     return false;
                 var loc = fields.location.coords;
+                markers[id].setPosition(
+                    new google.maps.LatLng(loc.latitude, loc.longitude)
+                );
+            },
+            removed: function (id) {
+                console.log("removing: " + id);
+                console.log(markers);
                 markers[id].setMap(null);
-                markers[id] = new google.maps.Marker({
-                    position: new google.maps.LatLng(
-                        loc.latitude,
-                        loc.longitude
-                    ),
-                    map: map.instance
-                });
+                delete markers[id];
             }
         });
     });
