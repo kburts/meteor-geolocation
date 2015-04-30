@@ -5,13 +5,14 @@
 Accounts.onCreateUser(function (options, user) {
     /*
       When a user is created I also want to create a Person to be placed on the map.
+      See lib/people.People.js for more information.
      */
     People.insert({
         user: {
             _id: user._id,
             username: user.username
         },
-        color: RandomColor({
+        color: randomColor({
             luminosity: 'dark'
         }),
         updated: new Date()
