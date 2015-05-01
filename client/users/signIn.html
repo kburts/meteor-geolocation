@@ -1,0 +1,32 @@
+<template name="signIn">
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="map"}}
+  {{/contentFor}}
+
+  {{#ionView class="padding"}}
+    {{#ionContent}}
+      {{#if currentUser}}
+        <div class="padding">
+          <button class="button button-block" id="login-logout">Log Out</button>
+        </div>
+      {{else}}
+        <div class="list padding">
+          <label class="item item-input">
+            <input type="text" placeholder="username" id="login-username">
+          </label>
+          <label class="item item-input">
+            <input type="password" placeholder="password" id="login-password">
+          </label>
+          <button class="button button-small login" id="login-login">
+            Login
+          </button>
+          <button class="button button-small register" id="login-register">
+            Register
+          </button>
+        </div>
+      {{/if}}
+
+    {{/ionContent}}
+  {{/ionView}}
+</template>

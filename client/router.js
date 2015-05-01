@@ -15,3 +15,7 @@ Router.route('/', {
 Router.route('/about', {
     name: 'about'
 });
+
+Router.route('/auth', {
+    name: 'signIn'
+});

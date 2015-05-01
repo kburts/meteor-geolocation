@@ -9,15 +9,50 @@
     </button>
   {{/contentFor}}
 
-  {{#ionSideMenuContainer}}
+  {{#ionSideMenuContainer side="right"}}
     {{#ionSideMenus}}
-      {{#ionSideMenu}}
-        side menu content
+      {{#ionSideMenu side="right"}}
+        <div class="bar bar-header bar-dark">
+          <h1 class="title">Right Menu</h1>
+        </div>
+        <div class="content has-header">
+
+          <div class="list">
+            <div class="item item-icon-left" data-ion-menu-close>
+              {{> ionIcon icon="ios-arrow-left"}} Close Me
+            </div>
+          </div>
+
+          {{#ionList class="padding"}}
+            <h3 class="title">Current People</h3>
+            {{# each people}}
+              {{#ionItem}}
+                <h3>
+                  <img src="{{ getMarkerImage color }}" alt="marker {{ getMarkerImage color }}">{{ user.username }}
+                  updated: {{ livestamp updated }}
+                </h3>
+                <p>
+                  location: {{location.coords.latitude }}, {{ location.coords.longitude }}
+                </p>
+
+              {{/ionItem}}
+            {{/ each }}
+          {{/ionList}}
+
+        </div>
       {{/ionSideMenu}}
     {{/ionSideMenus}}
     {{#ionSideMenuContent}}
-      {{> mapContainer}}
-
+      {{#ionView}}
+        {{#ionContent class="padding"}}
+          <div class="map">
+            <div class="map-container">
+              {{> googleMap name="exampleMap" options=exampleMapOptions}}
+            </div>
+            <div id="testmap"></div>
+          </div>
+        {{/ionContent}}
+      {{/ionView}}
     {{/ionSideMenuContent}}
   {{/ionSideMenuContainer}}
 
