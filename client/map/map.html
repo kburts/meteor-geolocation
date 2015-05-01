@@ -4,28 +4,22 @@
   {{/contentFor}}
 
   {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear" data-id="data id">Edit Button</button>
+    <button class="button button-clear pill-right" data-ion-menu-toggle="right">
+      {{> ionIcon icon='navicon'}}
+    </button>
   {{/contentFor}}
 
-  {{#ionView}}
-    {{#ionContent class="padding"}}
-      <div class="map">
-        <div class="map-container">
-          {{> googleMap name="exampleMap" options=exampleMapOptions}}
-        </div>
-        <div id="testmap"></div>
-      </div>
+  {{#ionSideMenuContainer}}
+    {{#ionSideMenus}}
+      {{#ionSideMenu}}
+        side menu content
+      {{/ionSideMenu}}
+    {{/ionSideMenus}}
+    {{#ionSideMenuContent}}
+      {{> mapContainer}}
 
-      <div class="currentPeople">
-        <h3>Current People</h3>
-        {{# each people}}
-          <ul>
-            <li><img src="{{ getMarkerImage color }}" alt="marker {{ getMarkerImage color }}">{{ user.username }}</li>
-            <li>updated: {{ livestamp updated }}</li>
-            <li>location: {{location.coords.latitude }}, {{ location.coords.longitude }}</li>
-          </ul>
-        {{/ each }}
-      </div>
-    {{/ionContent}}
-  {{/ionView}}
+    {{/ionSideMenuContent}}
+  {{/ionSideMenuContainer}}
+
+
 </template>

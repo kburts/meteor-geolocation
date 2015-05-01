@@ -1,0 +1,23 @@
+<template name="mapContainer">
+  {{#ionView}}
+    {{#ionContent class="padding"}}
+      <div class="map">
+        <div class="map-container">
+          {{> googleMap name="exampleMap" options=exampleMapOptions}}
+        </div>
+        <div id="testmap"></div>
+      </div>
+
+      <div class="currentPeople">
+        <h3>Current People</h3>
+        {{# each people}}
+          <ul>
+            <li><img src="{{ getMarkerImage color }}" alt="marker {{ getMarkerImage color }}">{{ user.username }}</li>
+            <li>updated: {{ livestamp updated }}</li>
+            <li>location: {{location.coords.latitude }}, {{ location.coords.longitude }}</li>
+          </ul>
+        {{/ each }}
+      </div>
+    {{/ionContent}}
+  {{/ionView}}
+</template>

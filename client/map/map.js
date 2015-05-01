@@ -139,6 +139,7 @@ Template.map.onCreated(function () {
 });
 
 Template.map.helpers({
+    /*
     exampleMapOptions: function () {
         // Make sure the maps API has loaded
 
@@ -150,6 +151,7 @@ Template.map.helpers({
             };
         }
     },
+    */
     people: function () {
         return People.find();
     },
