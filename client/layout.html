@@ -1,0 +1,16 @@
+<template name="layout">
+  <div>
+    {{# ionBody }}
+      {{> ionNavBar}}
+      {{#ionNavView}}
+        {{> yield}}
+      {{/ionNavView}}
+
+      {{#ionTabs class="tabs-icon-top"}}
+        {{> ionTab title="map" path="map" icon="earth"}}
+        {{> ionTab title="aboot" path="about" icon="android-time"}}
+        {{> ionTab title="profile" path="profile" icon="android-happy"}}
+      {{/ionTabs}}
+    {{/ ionBody }}
+  </div>
+</template>

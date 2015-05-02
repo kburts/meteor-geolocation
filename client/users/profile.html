@@ -1,0 +1,15 @@
+<template name="profile">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Profile</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonLeft"}}
+    {{>ionNavBackButton path="map"}}
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent class="padding has-header"}}
+      <button class="button button-block" id="logout">Log Out</button>
+    {{/ionContent}}
+  {{/ionView}}
+</template>
