@@ -14,7 +14,7 @@ Template.signIn.events({
                 console.log(err);
             }
             else {
-                Router.go('/')
+                Router.go('map')
             }
         });
         return false;
@@ -30,7 +30,7 @@ Template.signIn.events({
                 console.log(err);
             }
             else {
-                Router.go('/')
+                Router.go('map')
             }
         });
         return false;

@@ -2,10 +2,6 @@
  * Created by Kevin on 4/3/2015.
  */
 
-Meteor.startup(function () {
-    GoogleMaps.load();
-});
-
 /*
  Set center of map to current location.
  @param: google.maps.Map object.

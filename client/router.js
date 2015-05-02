@@ -4,15 +4,18 @@
 
 Router.configure({
     layoutTemplate: 'layout',
-    loadingTemplate: 'loading',
+    //loadingTemplate: 'loading',
     notFoundTemplate: 'notFound'
 });
 
 Router.route('/', {
-    name: 'map'
-    /*,
+    name: 'map',
+    subscriptions: function () {
+        this.subscribe('allPeople').wait();
+    },
     onBeforeAction: function () {
         GoogleMaps.load();
+        this.next();
     },
     action: function () {
         if (!this.ready()) {
@@ -22,7 +25,7 @@ Router.route('/', {
             IonLoading.hide();
             this.render();
         }
-    }*/
+    }
 });
 
 Router.route('/about', {
