@@ -1,14 +1,15 @@
 <template name="header">
-  <h1> MMATC</h1>
-  <ul>
-    <li>
-      <a href="/">Home</a>
-    </li>
-    <li>
-      <a href="/about">Aboot</a>
-    </li>
-    <li>
-      {{> loginButtons}}
-    </li>
-  </ul>
+
+
+  {{#ionView}}
+    {{#ionContent}}
+      <h1>MMATC</h1>
+      {{#ionList}}
+        {{#ionItem path="map" buttonRight=true class="item-icon-right"}}Home{{/ionItem}}
+        {{#ionItem path="about" buttonRight=true class="item-icon-right"}}Aboot{{/ionItem}}
+        {{#ionItem buttonRight=true class="item-icon-right"}} Auth: {{> loginButtons}} {{/ionItem}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+
 </template>

@@ -1,4 +1,12 @@
 <template name="about">
-  <h2>About:</h2>
-  <p>Here be the aboot page, eh.</p>
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">About</h1>
+  {{/contentFor}}
+
+
+
+  {{# ionContent class="padding has-header"}}
+    <h2>About:</h2>
+    <p>Here be the aboot page, eh.</p>
+  {{/ ionContent }}
 </template>
