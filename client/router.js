@@ -10,6 +10,19 @@ Router.configure({
 
 Router.route('/', {
     name: 'map'
+    /*,
+    onBeforeAction: function () {
+        GoogleMaps.load();
+    },
+    action: function () {
+        if (!this.ready()) {
+            IonLoading.show();
+        }
+        else {
+            IonLoading.hide();
+            this.render();
+        }
+    }*/
 });
 
 Router.route('/about', {
@@ -17,5 +30,18 @@ Router.route('/about', {
 });
 
 Router.route('/profile', {
-    name: 'profile'
+    name: 'profile',
+    onBeforeAction: function () {
+        if (!Meteor.userId()) {
+            this.redirect('signIn');
+        }
+        else {
+            this.next();
+        }
+    }
+
+});
+
+Router.route('/auth', {
+    name: 'signIn'
 });

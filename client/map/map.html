@@ -20,16 +20,16 @@
             </h1>
           </div>
           {{#ionList class="padding has-header"}}
-
-            <h3 class="title">Current People</h3>
             {{# each people}}
               {{#ionItem}}
                 <h3>
                   <img src="{{ getMarkerImage color }}" alt="marker {{ getMarkerImage color }}">{{ user.username }}
                 </h3>
+
                 <p>
                   updated: {{ livestamp updated }}
                 </p>
+
                 <p>
                   location: {{location.coords.latitude }}, {{ location.coords.longitude }}
                 </p>
