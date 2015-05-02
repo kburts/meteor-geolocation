@@ -146,7 +146,7 @@ Template.map.helpers({
             // Map initialization options
             return {
                 center: new google.maps.LatLng(49.0, -123.0),
-                zoom: 10
+                zoom: 12
             };
         }
     },

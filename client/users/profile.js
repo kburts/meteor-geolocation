@@ -2,7 +2,7 @@
  * Created by Kevin on 5/1/2015.
  */
 
-Template.signIn.events({
+Template.profile.events({
     'click #login-login': function (event, template) {
         event.preventDefault();
         var username = template.find("#login-username").value;
@@ -13,8 +13,6 @@ Template.signIn.events({
                 console.log("error logging in!");
                 console.log(err);
             }
-            else
-                Router.go("/");
         });
         return false;
     },
@@ -28,14 +26,11 @@ Template.signIn.events({
                 console.log("error registering");
                 console.log(err);
             }
-            else
-                Router.go("/");
         });
         return false;
     },
     "click #login-logout": function (event, template) {
         event.preventDefault();
         Meteor.logout();
-        Router.go("/")
     }
 });

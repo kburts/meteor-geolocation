@@ -9,28 +9,27 @@
     </button>
   {{/contentFor}}
 
-  {{#ionSideMenuContainer side="right"}}
+  {{#ionSideMenuContainer side="right" dragContent=false}}
     {{#ionSideMenus}}
       {{#ionSideMenu side="right"}}
-        <div class="bar bar-header bar-dark">
-          <h1 class="title">Right Menu</h1>
-        </div>
-        <div class="content has-header">
-
-          <div class="list">
-            <div class="item item-icon-left" data-ion-menu-close>
-              {{> ionIcon icon="ios-arrow-left"}} Close Me
-            </div>
+        {{#ionContent}}
+          <div class="bar bar-header bar-dark">
+            <h1 class="title" data-ion-menu-close>
+              {{> ionIcon icon="ios-arrow-back"}}
+              People
+            </h1>
           </div>
+          {{#ionList class="padding has-header"}}
 
-          {{#ionList class="padding"}}
             <h3 class="title">Current People</h3>
             {{# each people}}
               {{#ionItem}}
                 <h3>
                   <img src="{{ getMarkerImage color }}" alt="marker {{ getMarkerImage color }}">{{ user.username }}
-                  updated: {{ livestamp updated }}
                 </h3>
+                <p>
+                  updated: {{ livestamp updated }}
+                </p>
                 <p>
                   location: {{location.coords.latitude }}, {{ location.coords.longitude }}
                 </p>
@@ -39,12 +38,12 @@
             {{/ each }}
           {{/ionList}}
 
-        </div>
+        {{/ionContent}}
       {{/ionSideMenu}}
     {{/ionSideMenus}}
     {{#ionSideMenuContent}}
       {{#ionView}}
-        {{#ionContent class="padding"}}
+        {{#ionContent class="padding has-header"}}
           <div class="map">
             <div class="map-container">
               {{> googleMap name="exampleMap" options=exampleMapOptions}}

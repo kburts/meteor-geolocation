@@ -1,11 +1,14 @@
-<template name="signIn">
+<template name="profile">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Profile</h1>
+  {{/contentFor}}
 
   {{#contentFor "headerButtonLeft"}}
     {{>ionNavBackButton path="map"}}
   {{/contentFor}}
 
-  {{#ionView class="padding"}}
-    {{#ionContent}}
+  {{#ionView}}
+    {{#ionContent class="padding has-header"}}
       {{#if currentUser}}
         <div class="padding">
           <button class="button button-block" id="login-logout">Log Out</button>
