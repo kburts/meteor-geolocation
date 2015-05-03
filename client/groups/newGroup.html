@@ -1,0 +1,24 @@
+<template name="newGroup">
+  {{#ionModal customTemplate=true}}
+    <div class="bar bar-header bar-stable">
+      <button data-dismiss="modal" type="button" class="button button-clear">Cancel</button>
+      <h2 class="title">New Group</h2>
+      <button type="submit" class="button button-positive button-clear" id="new-group-create">Post</button>
+    </div>
+
+    <div class="content has-header overflow-scroll">
+      <form id="groups-new-form">
+
+        <label class="item item-input">
+          <input type="text" placeholder="group name" id="new-group-name">
+        </label>
+        <div class="item item-checkbox">
+          <label class="checkbox">
+            <input type="checkbox" id="new-group-private">
+          </label>
+          Private Group
+        </div>
+      </form>
+    </div>
+  {{/ionModal}}
+</template>

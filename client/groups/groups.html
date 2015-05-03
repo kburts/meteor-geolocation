@@ -1,0 +1,23 @@
+<template name="groups">
+  {{#contentFor "headerTitle"}}
+    <h1 class="title">Groups List</h1>
+  {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+    <button class="button button-clear pull-right" data-ion-modal="newGroup">
+      {{> ionIcon icon="ios-plus-empty"}}
+    </button>
+  {{/contentFor}}
+
+  {{#ionView}}
+    {{#ionContent class="has-header"}}
+      {{#ionList}}
+        {{#each groups}}
+          {{#ionItem path="map" _id="{{_id}}"}}
+            {{name}}
+          {{/ionItem}}
+        {{/each}}
+      {{/ionList}}
+    {{/ionContent}}
+  {{/ionView}}
+</template>
