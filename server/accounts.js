@@ -4,8 +4,8 @@
 
 Accounts.onCreateUser(function (options, user) {
     /*
-      When a user is created I also want to create a Person to be placed on the map.
-      See lib/people.People.js for more information.
+     When a user is created I also want to create a Person to be placed on the map.
+     See lib/people.people.js for more information.
      */
     People.insert({
         user: {
@@ -18,5 +18,4 @@ Accounts.onCreateUser(function (options, user) {
         updated: new Date()
     });
     return user;
-    //Meteor.call("createPerson")
 });
