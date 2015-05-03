@@ -2,10 +2,6 @@
  * Created by Kevin on 4/3/2015.
  */
 
-Meteor.startup(function () {
-    GoogleMaps.load();
-});
-
 /*
  Set center of map to current location.
  @param: google.maps.Map object.
@@ -129,8 +125,6 @@ Template.map.onCreated(function () {
                 );
             },
             removed: function (id) {
-                console.log("removing: " + id);
-                console.log(markers);
                 markers[id].setMap(null);
                 delete markers[id];
             }
@@ -146,7 +140,7 @@ Template.map.helpers({
             // Map initialization options
             return {
                 center: new google.maps.LatLng(49.0, -123.0),
-                zoom: 10
+                zoom: 12
             };
         }
     },
