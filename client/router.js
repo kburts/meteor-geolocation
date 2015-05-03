@@ -7,11 +7,11 @@ Router.configure({
     //loadingTemplate: 'loading',
     notFoundTemplate: 'notFound'
 });
-
+/*
 Router.route('/', {
     name: 'map',
     subscriptions: function () {
-        this.subscribe('allPeople').wait();
+        this.subscribe('group').wait();
     },
     onBeforeAction: function () {
         GoogleMaps.load();
@@ -27,9 +27,38 @@ Router.route('/', {
         }
     }
 });
+*/
+Router.route('/map/:_id?', {
+    name: 'map',
+    onBeforeAction: function () {
+        GoogleMaps.load();
+        this.next();
+    },
+    subscriptions: function () {
+        return Meteor.subscribe('group', this.params._id);
+    }
+});
 
 Router.route('/about', {
     name: 'about'
+});
+
+Router.route('/groups', {
+    name: 'groups',
+    subscriptions: function () {
+        this.subscribe('allGroups').wait()
+    }
+    /*,
+    action: function () {
+        if (!this.ready()) {
+            IonLoading.show();
+        }
+        else {
+            IonLoading.hide();
+            this.render();
+        }
+    }
+    */
 });
 
 Router.route('/profile', {

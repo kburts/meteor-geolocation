@@ -125,8 +125,6 @@ Template.map.onCreated(function () {
                 );
             },
             removed: function (id) {
-                console.log("removing: " + id);
-                console.log(markers);
                 markers[id].setMap(null);
                 delete markers[id];
             }
