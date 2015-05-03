@@ -3,11 +3,21 @@
     <h1 class="title">{{title}}</h1>
   {{/contentFor}}
 
-  {{#contentFor "headerButtonRight"}}
-    <button class="button button-clear pill-right" data-ion-menu-toggle="right">
-      {{> ionIcon icon='navicon'}}
-    </button>
+  {{#contentFor "headerButtonLeft"}}
+    {{#if canJoin}}
+      <button class="button button-clear pull-left" id="maps-join-group">
+        {{> ionIcon icon="android-add"}}
+        join group
+      </button>
+    {{/if}}
   {{/contentFor}}
+
+  {{#contentFor "headerButtonRight"}}
+      <button class="button button-clear pill-right" data-ion-menu-toggle="right">
+        {{> ionIcon icon='navicon'}}
+      </button>
+  {{/contentFor}}
+
 
   {{#ionSideMenuContainer side="right" dragContent=false}}
     {{#ionSideMenus}}

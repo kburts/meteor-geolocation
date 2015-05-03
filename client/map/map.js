@@ -157,9 +157,24 @@ Template.map.helpers({
         else {
             return Groups.findOne().name;
         }
+    },
+    canJoin: function () {
+        // Return if you can join the group or not
+        // conditions: not world map and not already in the group.
+        return (
+            Groups.findOne() != undefined
+            && Groups.findOne({"people._id": Meteor.userId()}) == undefined
+        );
     }
     /*,
     updatedAgo: function (date) {
         return moment(date).fromNow();
     }*/
+});
+
+Template.map.events({
+    'click #maps-join-group': function (event, template) {
+        event.preventDefault();
+        console.log('joining');
+    }
 });

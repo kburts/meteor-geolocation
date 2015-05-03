@@ -17,14 +17,6 @@ Template.groups.helpers({
 Template.groups.events({
     'click .groups-join-group': function (event, template) {
         var groupId = this._id;
-        Meteor.call('joinGroup', groupId, function (error) {
-            if (error) {
-                console.log("error joining group");
-                console.log(error);
-            }
-            else {
-                Router.go('map', {_id: groupId});
-            }
-        });
+        Router.go('map', {_id: groupId});
     }
 });
