@@ -12,7 +12,12 @@ Meteor.publish('allGroups', function () {
     /*
      List all the public groups you can join.
      */
-    return Groups.find({private: false}, {sort: {created: -1}});
+    return Groups.find({
+        $or: [
+            {private: {$ne: true}},
+            {"owner._id": Meteor.userId()}
+        ],
+        {sort: {created: -1}});
 });
 
 Meteor.publish('group', function (id) {

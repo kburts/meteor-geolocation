@@ -172,9 +172,14 @@ Template.map.helpers({
     }*/
 });
 
-Template.map.events({
-    'click #maps-join-group': function (event, template) {
-        event.preventDefault();
-        console.log('joining');
+// This needs to go in the layout because it is a part of the top nav bar.
+Template.layout.events({
+    'click [data-action=maps-join-group]': function () {
+        var groupId = Router.current().params._id;
+        Meteor.call('joinGroup', groupId);
+    },
+    'click [data-action=maps-leave-group]': function () {
+        var groupId = Router.current().params._id;
+        Meteor.call('leaveGroup', groupId);
     }
 });

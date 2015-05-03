@@ -5,9 +5,14 @@
 
   {{#contentFor "headerButtonLeft"}}
     {{#if canJoin}}
-      <button class="button button-clear pull-left" id="maps-join-group">
+      <button class="button button-clear pull-left" data-action="maps-join-group">
         {{> ionIcon icon="android-add"}}
         join group
+      </button>
+    {{else}}
+      <button class="button button-clear pull-left" data-action="maps-leave-group">
+        {{> ionIcon icon="android-remove"}}
+        leave group
       </button>
     {{/if}}
   {{/contentFor}}
