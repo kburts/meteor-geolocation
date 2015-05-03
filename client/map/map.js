@@ -149,6 +149,14 @@ Template.map.helpers({
     },
     getMarkerImage: function (color) {
         return createMarkerColor(color);
+    },
+    title: function () {
+        if (!Groups.findOne()) {
+            return "World Map";
+        }
+        else {
+            return Groups.findOne().name;
+        }
     }
     /*,
     updatedAgo: function (date) {

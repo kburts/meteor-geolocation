@@ -5,7 +5,7 @@
 Accounts.onCreateUser(function (options, user) {
     /*
      When a user is created I also want to create a Person to be placed on the map.
-     See lib/people.people.js for more information.
+     See lib/people.js for more information.
      */
     People.insert({
         user: {

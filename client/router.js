@@ -4,30 +4,13 @@
 
 Router.configure({
     layoutTemplate: 'layout',
-    //loadingTemplate: 'loading',
     notFoundTemplate: 'notFound'
 });
-/*
-Router.route('/', {
-    name: 'map',
-    subscriptions: function () {
-        this.subscribe('group').wait();
-    },
-    onBeforeAction: function () {
-        GoogleMaps.load();
-        this.next();
-    },
-    action: function () {
-        if (!this.ready()) {
-            IonLoading.show();
-        }
-        else {
-            IonLoading.hide();
-            this.render();
-        }
-    }
+
+Router.route('/', function () {
+    this.redirect('map');
 });
-*/
+
 Router.route('/map/:_id?', {
     name: 'map',
     onBeforeAction: function () {
@@ -48,7 +31,8 @@ Router.route('/groups', {
     subscriptions: function () {
         this.subscribe('allGroups').wait()
     }
-    /*,
+    /* Maybe will add in loading later when things are more stable.
+    ,
     action: function () {
         if (!this.ready()) {
             IonLoading.show();
