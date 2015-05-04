@@ -14,7 +14,7 @@ Router.route('/', function () {
 Router.route('/map/:_id?', {
     name: 'map',
     onBeforeAction: function () {
-        GoogleMaps.load();
+        GoogleMaps.load({key: Meteor.settings.public.GOOGLE_MAPS_API_KEY});
         this.next();
     },
     subscriptions: function () {
@@ -31,18 +31,6 @@ Router.route('/groups', {
     subscriptions: function () {
         this.subscribe('allGroups').wait();
     }
-    /* Maybe will add in loading later when things are more stable.
-    ,
-    action: function () {
-        if (!this.ready()) {
-            IonLoading.show();
-        }
-        else {
-            IonLoading.hide();
-            this.render();
-        }
-    }
-    */
 });
 
 Router.route('/profile', {
