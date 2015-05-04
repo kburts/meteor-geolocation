@@ -4,7 +4,7 @@
 
 // People
 Meteor.publish('profile', function () {
-    return People.find({"user._id": Meteor.userId()});
+    return People.find({"user._id": this.userId});
 });
 
 // Groups
@@ -12,12 +12,17 @@ Meteor.publish('allGroups', function () {
     /*
      List all the public groups you can join.
      */
-    return Groups.find({
-        $or: [
-            {private: {$ne: true}},
-            {"owner._id": Meteor.userId()}
-        ],
-        {sort: {created: -1}});
+    return Groups.find(
+        {
+            $or: [
+                {private: {$ne: true}},
+                {"owner._id": this.userId}
+            ]
+        },
+        {
+            sort: {created: -1}
+        }
+    );
 });
 
 Meteor.publish('group', function (id) {

@@ -9,6 +9,13 @@
 
   {{#ionView}}
     {{#ionContent class="padding has-header"}}
+      <div class="item item-checkbox">
+        <label class="checkbox">
+          <input type="checkbox" id="profile-scramble-location" checked={{isScrambled}}>
+        </label>
+        scramble location
+      </div>
+
       <button class="button button-block" id="logout">Log Out</button>
     {{/ionContent}}
   {{/ionView}}

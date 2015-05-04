@@ -29,7 +29,7 @@ Router.route('/about', {
 Router.route('/groups', {
     name: 'groups',
     subscriptions: function () {
-        this.subscribe('allGroups').wait()
+        this.subscribe('allGroups').wait();
     }
     /* Maybe will add in loading later when things are more stable.
     ,
@@ -47,6 +47,10 @@ Router.route('/groups', {
 
 Router.route('/profile', {
     name: 'profile',
+    subscriptions: function () {
+        this.subscribe('profile').wait();
+        this.subscribe('allGroups').wait()
+    },
     onBeforeAction: function () {
         if (!Meteor.userId()) {
             this.redirect('signIn');

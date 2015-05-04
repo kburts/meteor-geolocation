@@ -15,7 +15,8 @@ Accounts.onCreateUser(function (options, user) {
         color: randomColor({
             luminosity: 'dark'
         }),
-        updated: new Date()
+        updated: new Date(),
+        scrambleLocation: false
     });
     return user;
 });

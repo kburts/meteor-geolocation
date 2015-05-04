@@ -74,10 +74,6 @@ Template.map.onCreated(function () {
     // eventually going to have a marker for the user's pointer as well.
     var markers = {};
 
-    // Create a new Person on the map if there isn't one for the ID already.
-    // Meteor.call("createPerson");
-    // Looking to move to Accounts.onCreateUser.
-
     Meteor.setInterval(function () {
         updatePosition();
     }, 10000);
@@ -166,13 +162,10 @@ Template.map.helpers({
             && Groups.findOne({"people._id": Meteor.userId()}) == undefined
         );
     }
-    /*,
-    updatedAgo: function (date) {
-        return moment(date).fromNow();
-    }*/
 });
 
 // This needs to go in the layout because it is a part of the top nav bar.
+// Even though it is only present in the map template.
 Template.layout.events({
     'click [data-action=maps-join-group]': function () {
         var groupId = Router.current().params._id;
