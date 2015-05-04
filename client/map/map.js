@@ -74,10 +74,6 @@ Template.map.onCreated(function () {
     // eventually going to have a marker for the user's pointer as well.
     var markers = {};
 
-    // Create a new Person on the map if there isn't one for the ID already.
-    // Meteor.call("createPerson");
-    // Looking to move to Accounts.onCreateUser.
-
     Meteor.setInterval(function () {
         updatePosition();
     }, 10000);
@@ -149,9 +145,34 @@ Template.map.helpers({
     },
     getMarkerImage: function (color) {
         return createMarkerColor(color);
+    },
+    title: function () {
+        if (!Groups.findOne()) {
+            return "World Map";
+        }
+        else {
+            return Groups.findOne().name;
+        }
+    },
+    canJoin: function () {
+        // Return if you can join the group or not
+        // conditions: not world map and not already in the group.
+        return (
+            Groups.findOne() != undefined
+            && Groups.findOne({"people._id": Meteor.userId()}) == undefined
+        );
     }
-    /*,
-    updatedAgo: function (date) {
-        return moment(date).fromNow();
-    }*/
+});
+
+// This needs to go in the layout because it is a part of the top nav bar.
+// Even though it is only present in the map template.
+Template.layout.events({
+    'click [data-action=maps-join-group]': function () {
+        var groupId = Router.current().params._id;
+        Meteor.call('joinGroup', groupId);
+    },
+    'click [data-action=maps-leave-group]': function () {
+        var groupId = Router.current().params._id;
+        Meteor.call('leaveGroup', groupId);
+    }
 });

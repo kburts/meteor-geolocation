@@ -13,8 +13,9 @@
     {{#ionContent class="has-header"}}
       {{#ionList}}
         {{#each groups}}
-          {{#ionItem path="map" _id="{{_id}}"}}
-            {{name}}
+          {{#ionItem class="groups-join-group" _id=_id iconRight=true}}
+            <h2>{{name}}</h2>
+            {{> ionIcon icon="ios-arrow-forward"}}
           {{/ionItem}}
         {{/each}}
       {{/ionList}}

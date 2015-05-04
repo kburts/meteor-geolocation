@@ -4,34 +4,17 @@
 
 Router.configure({
     layoutTemplate: 'layout',
-    //loadingTemplate: 'loading',
     notFoundTemplate: 'notFound'
 });
-/*
-Router.route('/', {
-    name: 'map',
-    subscriptions: function () {
-        this.subscribe('group').wait();
-    },
-    onBeforeAction: function () {
-        GoogleMaps.load();
-        this.next();
-    },
-    action: function () {
-        if (!this.ready()) {
-            IonLoading.show();
-        }
-        else {
-            IonLoading.hide();
-            this.render();
-        }
-    }
+
+Router.route('/', function () {
+    this.redirect('map');
 });
-*/
+
 Router.route('/map/:_id?', {
     name: 'map',
     onBeforeAction: function () {
-        GoogleMaps.load();
+        GoogleMaps.load({key: Meteor.settings.public.GOOGLE_MAPS_API_KEY});
         this.next();
     },
     subscriptions: function () {
@@ -46,23 +29,16 @@ Router.route('/about', {
 Router.route('/groups', {
     name: 'groups',
     subscriptions: function () {
-        this.subscribe('allGroups').wait()
+        this.subscribe('allGroups').wait();
     }
-    /*,
-    action: function () {
-        if (!this.ready()) {
-            IonLoading.show();
-        }
-        else {
-            IonLoading.hide();
-            this.render();
-        }
-    }
-    */
 });
 
 Router.route('/profile', {
     name: 'profile',
+    subscriptions: function () {
+        this.subscribe('profile').wait();
+        this.subscribe('allGroups').wait()
+    },
     onBeforeAction: function () {
         if (!Meteor.userId()) {
             this.redirect('signIn');

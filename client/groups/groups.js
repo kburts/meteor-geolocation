@@ -13,3 +13,10 @@ Template.groups.helpers({
         return Groups.find();
     }
 });
+
+Template.groups.events({
+    'click .groups-join-group': function (event, template) {
+        var groupId = this._id;
+        Router.go('map', {_id: groupId});
+    }
+});

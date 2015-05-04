@@ -3,38 +3,43 @@
  */
 
 // People
-/* To remove later, merging main world map and custom group map.
-Meteor.publish('allPeople', function () {
-    return People.find();
-});
-*/
-
 Meteor.publish('profile', function () {
-    return People.find({"user._id": Meteor.userId()});
+    return People.find({"user._id": this.userId});
 });
 
-// Maps
+// Groups
 Meteor.publish('allGroups', function () {
-    return Groups.find({private: false});
+    /*
+     List all the public groups you can join.
+     */
+    return Groups.find(
+        {
+            $or: [
+                {private: {$ne: true}},
+                {"owner._id": this.userId}
+            ]
+        },
+        {
+            sort: {created: -1}
+        }
+    );
 });
 
 Meteor.publish('group', function (id) {
     /*
+     Return a specific Group and all the People in it.
      id is an optional parameter, if it is undefined will return all people (for now.)
      */
     if (id == undefined) {
         return People.find();
     }
-    var people = Groups.findOne({_id: id}).people; // list of Id's
-    var peopleId = people.map(function (person) {
+    var people = Groups.findOne({_id: id}).people;
+    var peopleId = people.map(function (person) { // list of People._id's in Group
         return person._id;
     });
 
-    console.log("found group");
-    console.log(peopleId);
-    console.log(id);
     return [
         Groups.find({_id: id}),
-        People.find({_id: {$in: peopleId}})
+        People.find({"user._id": {$in: peopleId}})
     ]
 });
