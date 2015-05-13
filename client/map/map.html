@@ -38,7 +38,8 @@
             {{# each people}}
               {{#ionItem}}
                 <h3>
-                  <img src="{{ getMarkerImage color }}" alt="marker {{ getMarkerImage color }}">{{ user.username }}
+                  <img src="{{ getMarkerImage color }}" alt="marker {{ getMarkerImage color }}"
+                      class="map-person-marker" data-coords="coordanates!">{{ user.username }}
                 </h3>
 
                 <p>
@@ -61,7 +62,7 @@
         {{#ionContent class="padding has-header"}}
           <div class="map">
             <div class="map-container">
-              {{> googleMap name="exampleMap" options=exampleMapOptions}}
+              {{> googleMap name="mainMap" options=mainMapOptions}}
             </div>
             <div id="testmap"></div>
           </div>
