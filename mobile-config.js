@@ -14,8 +14,14 @@ App.icons({
 });
 
 App.launchScreens({
-    'android_ldpi_portrait': 'resources/splash/android_splash_ldpi.png',
-    'android_mdpi_portrait': 'resources/splash/android_splash_mdpi.png'
+    'android_ldpi_portrait': 'resources/splash/drawable-ldpi/screen.png',
+    'android_ldpi_landscape': 'resources/splash/drawable-land-ldpi/screen.png',
+    'android_mdpi_portrait': 'resources/splash/drawable-mdpi/screen.png',
+    'android_mdpi_landscape': 'resources/splash/drawable-land-mdpi/screen.png',
+    'android_hdpi_portrait': 'resources/splash/drawable-hdpi/screen.png',
+    'android_hdpi_landscape': 'resources/splash/drawable-land-hdpi/screen.png',
+    'android_xhdpi_portrait': 'resources/splash/drawable-xhdpi/screen.png',
+    'android_xhdpi_landscape': 'resources/splash/drawable-land-xhdpi/screen.png'
 });
 
 App.setPreference('StatusBarOverlaysWebView', true);
