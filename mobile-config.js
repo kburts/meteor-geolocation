@@ -3,7 +3,7 @@ App.info({
     description: 'Help find your friends and plan events.',
     author: 'Kevin Burton',
     website: 'http://kevinsapps.com',
-    version: '0.1.0'
+    version: '0.1.2'
 });
 
 App.icons({
