@@ -3,14 +3,20 @@
  */
 
 /*
- Set center of map to current location.
+ Set center of map to current location, or given location if given.
  @param: google.maps.Map object.
+ @param options: center, saves a geolocation call.
  */
-function setCenter(map) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-        var center = position;
-        map.instance.setCenter(new google.maps.LatLng(center.coords.latitude, center.coords.longitude));
-    });
+function setCenter(map, center) {
+    if (center) {
+        map.instance.setCenter(new google.maps.LatLng(center.latitude, center.longitude));
+    }
+    else {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var center = position;
+            map.instance.setCenter(new google.maps.LatLng(center.coords.latitude, center.coords.longitude));
+        });
+    }
 }
 
 /*
@@ -74,14 +80,21 @@ Template.map.onCreated(function () {
     // eventually going to have a marker for the user's pointer as well.
     var markers = {};
 
+    var updatePositionInterval = 10000; // 10 seconds
     Meteor.setInterval(function () {
         updatePosition();
-    }, 10000);
+    }, updatePositionInterval);
 
 
-    GoogleMaps.ready('exampleMap', function (map) {
+    GoogleMaps.ready('mainMap', function (map) {
         // Initial setup of map. - set the center to your position (at 10 zoom from .loaded())
-        setCenter(map);
+        // setCenter(map);
+
+        // Set center on 'center' Session variable change
+        Tracker.autorun(function () {
+            var center = Session.get('center');
+            setCenter(map, center);
+        });
 
         People.find().observeChanges({
             added: function (id, document) {
@@ -129,7 +142,7 @@ Template.map.onCreated(function () {
 });
 
 Template.map.helpers({
-    exampleMapOptions: function () {
+    mainMapOptions: function () {
         // Make sure the maps API has loaded
 
         if (GoogleMaps.loaded()) {
@@ -174,5 +187,9 @@ Template.layout.events({
     'click [data-action=maps-leave-group]': function () {
         var groupId = Router.current().params._id;
         Meteor.call('leaveGroup', groupId);
+    },
+    'click .map-person-marker': function () {
+        Session.set('center', this.location.coords);
+        //var map = new google.maps.Map(document.getElementById('map-container'))
     }
 });
