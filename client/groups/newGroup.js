@@ -9,7 +9,8 @@ Template.newGroup.events({
         var private = template.$("#new-group-private")[0].checked;
         Meteor.call("createGroup", name, function (error, result) {
             if (error) {
-                console.log("Error creating new group.");
+                throw new Meteor.Error('cannot-create-group', 'Error creating new group.');
+                //console.log("Error creating new group.");
             }
             else {
                 IonModal.close();
