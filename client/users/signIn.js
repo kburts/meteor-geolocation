@@ -8,10 +8,9 @@ Template.signIn.events({
         var username = template.find("#login-username").value;
         var password = template.find("#login-password").value;
 
-        Meteor.loginWithPassword(username, password, function(err) {
-            if (err) {
-                console.log("error logging in!");
-                console.log(err);
+        Meteor.loginWithPassword(username, password, function(error) {
+            if (error) {
+                throw new Meteor.Error('cannot-login', 'Could not log you in', error);
             }
             else {
                 Router.go('map')
@@ -24,10 +23,9 @@ Template.signIn.events({
         var username = template.find("#login-username").value;
         var password = template.find("#login-password").value;
 
-        Accounts.createUser({username: username, password: password}, function(err) {
-            if (err) {
-                console.log("error registering");
-                console.log(err);
+        Accounts.createUser({username: username, password: password}, function(error) {
+            if (error) {
+                throw new Meteor.Error('cannot-register', 'Could not register', error);
             }
             else {
                 Router.go('map')

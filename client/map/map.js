@@ -26,10 +26,20 @@ function setCenter(map, center) {
 function updatePosition() {
     navigator.geolocation.getCurrentPosition(
         function (position) {
-            Meteor.call("updatePerson", {position: position});
+            var coords = position.coords;
+            var options = {};
+
+            options.timestamp = position.timestamp;
+            options.coords = {
+                latitude: coords.latitude,
+                longitude: coords.longitude,
+                accuracy: coords.accuracy
+                // Excluding heading, altitude, altitude accuracy for not on putpose
+            };
+            //console.log(options);
+            Meteor.call("updatePerson", options);
         }, function (error) {
-            console.log("Error getting your geolocation!");
-            console.log(error)
+            throw new Meteor.Error('cannot-get-location', 'Error getting your location', error);
         },
         {timeout: 10000}
     );
