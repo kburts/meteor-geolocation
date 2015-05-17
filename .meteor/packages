@@ -7,7 +7,6 @@
 meteor-platform
 dburles:google-maps
 accounts-base
-accounts-ui
 accounts-password
 mdg:geolocation
 iron:router
@@ -19,3 +18,5 @@ meteoric:ionicons-sass
 meteoric:ionic
 msavin:mongol
 fastclick
+houston:admin
+accounts-facebook
