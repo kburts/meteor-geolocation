@@ -6,6 +6,3 @@
  Client accounts settings (auth methods etc..)
  */
 
-Accounts.ui.config({
-    passwordSignupFields: 'USERNAME_ONLY'
-});
