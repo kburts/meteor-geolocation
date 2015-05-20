@@ -36,6 +36,7 @@ Template.signIn.events({
     'click #login-facebook': function (event) {
         Meteor.loginWithFacebook({}, function (error) {
             if (error) {
+                //Session.set('login-error', error);
                 throw new Meteor.Error('cannot-login-facebook', 'Could not log you in with facebook')
             }
             else {
@@ -44,3 +45,11 @@ Template.signIn.events({
         })
     }
 });
+
+/*
+Template.signIn.helpers({
+    loginerror: function () {
+        return Session.get('login-error');
+    }
+});
+    */

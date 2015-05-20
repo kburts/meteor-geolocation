@@ -33,7 +33,8 @@ ServiceConfiguration.configurations.upsert(
     {
         $set: {
             appId: Meteor.settings.private.FACEBOOK_APP_ID,
-            secret: Meteor.settings.private.FACEBOOK_APP_SECRET
+            secret: Meteor.settings.private.FACEBOOK_APP_SECRET,
+            loginStyle: "redirect"
         }
     }
 );
