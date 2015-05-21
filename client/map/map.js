@@ -121,6 +121,9 @@ Template.map.onCreated(function () {
                 }
 
                 var loc = document.location.coords;
+                if (document.user._id == Meteor.userId()) {
+                    Session.set('center', loc);
+                }
                 markers[id] = createMarker({
                     map: map,
                     coords: loc,
