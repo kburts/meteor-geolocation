@@ -187,6 +187,9 @@ Template.map.helpers({
             Groups.findOne() != undefined
             && Groups.findOne({"people._id": Meteor.userId()}) == undefined
         );
+    },
+    isNotWorldMap: function () {
+        return Groups.findOne() != undefined;
     }
 });
 
