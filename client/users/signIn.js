@@ -34,3 +34,11 @@ Template.signIn.events({
         return false;
     }
 });
+
+/*
+Template.signIn.helpers({
+    loginerror: function () {
+        return Session.get('login-error');
+    }
+});
+    */

@@ -1,27 +1,30 @@
 <template name="map">
-  {{#contentFor "headerTitle"}}
-    <h1 class="title title-center">{{title}}</h1>
-  {{/contentFor}}
 
-
-  {{#contentFor "headerButtonLeft"}}
-    {{#if canJoin}}
-      <button class="button button-clear pull-left" data-action="maps-join-group">
-        {{> ionIcon icon="android-add"}}
-        join group
-      </button>
-    {{else}}
-      <button class="button button-clear pull-left" data-action="maps-leave-group">
-        {{> ionIcon icon="android-remove"}}
-        leave group
-      </button>
-    {{/if}}
-  {{/contentFor}}
+  {{#if isNotWorldMap}}
+    {{#contentFor "headerButtonLeft"}}
+      &nbsp;
+      {{#if canJoin}}
+        <button class="button button-clear pull-left" data-action="maps-join-group">
+          {{> ionIcon icon="android-add"}}
+          join group
+        </button>
+      {{else}}
+        <button class="button button-clear pull-left" data-action="maps-leave-group">
+          {{> ionIcon icon="android-remove"}}
+          leave group
+        </button>
+      {{/if}}
+    {{/contentFor}}
+  {{/if}}
 
   {{#contentFor "headerButtonRight"}}
       <button class="button button-clear pill-right" data-ion-menu-toggle="right">
         {{> ionIcon icon='navicon'}}
       </button>
+  {{/contentFor}}
+
+  {{#contentFor "headerTitle"}}
+    <h1 class="title title-center">{{title}}</h1>
   {{/contentFor}}
 
 

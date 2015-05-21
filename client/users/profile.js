@@ -4,7 +4,7 @@
 
 Template.profile.helpers({
     username: function () {
-        return Meteor.user() && Meteor.user().username;
+        return People.findOne() && People.findOne().user.username;
     },
     isScrambled: function () {
         return People.findOne() && People.findOne().scrambleLocation;
