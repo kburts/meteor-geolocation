@@ -6,12 +6,12 @@
       {{#if canJoin}}
         <button class="button button-clear pull-left" data-action="maps-join-group">
           {{> ionIcon icon="android-add"}}
-          join group
+          join
         </button>
       {{else}}
         <button class="button button-clear pull-left" data-action="maps-leave-group">
           {{> ionIcon icon="android-remove"}}
-          leave group
+          leave
         </button>
       {{/if}}
     {{/contentFor}}
@@ -35,7 +35,7 @@
           <div class="bar bar-header bar-dark">
             <h1 class="title" data-ion-menu-close>
               {{> ionIcon icon="ios-arrow-back"}}
-              People
+              group members
             </h1>
           </div>
           {{#ionList class="has-header"}}

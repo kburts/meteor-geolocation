@@ -5,3 +5,8 @@
 .hidden {
   display: none;
 }
+
+// To fix the keyboard pushing divs off the screen on mobile app
+.content.overflow-scroll {
+  bottom: 0px !important;
+}
