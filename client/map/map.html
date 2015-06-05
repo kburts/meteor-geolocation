@@ -42,8 +42,12 @@
             {{# each people}}
               {{#ionItem}}
                 <h3>
-                  <img src="{{ getMarkerImage color }}" alt="marker {{ getMarkerImage color }}"
-                      class="map-person-marker" data-coords="coordanates!">{{ user.username }}
+                  <img
+                      src="{{ getMarkerImage color }}"
+                      alt="marker {{ getMarkerImage color }}"
+                      class="map-person-marker" data-coords="coordanates!"
+                      data-ion-menu-toggle="right">
+                  {{ user.username }}
                 </h3>
 
                 <p>
