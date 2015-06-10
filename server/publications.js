@@ -34,12 +34,14 @@ Meteor.publish('group', function (id) {
         return People.find();
     }
     var people = Groups.findOne({_id: id}).people;
+    /*
     var peopleId = people.map(function (person) { // list of People._id's in Group
         return person._id;
     });
-
+    */
+    console.log(Groups.findOne({_id: id}));
     return [
         Groups.find({_id: id}),
-        People.find({"user._id": {$in: peopleId}})
+        People.find({"user._id": {$in: people}})
     ]
 });
