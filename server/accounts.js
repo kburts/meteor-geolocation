@@ -37,14 +37,19 @@ Accounts.onCreateUser(function (options, user) {
      */
     var username = user.username;
 
-    People.insert({
-        user: {
-            _id: user._id,
-            username: username
-        },
-        color: randomColor(),
-        updated: new Date(),
-        scrambleLocation: false
-    });
-    return user;
+    if (People.findOne({'user.username': user.username})) {
+        throw new Meteor.Error('cannot-create-account', 'Cannot create account because person with that username exists');
+    }
+    else {
+        People.insert({
+            user: {
+                _id: user._id,
+                username: username
+            },
+            color: randomColor(),
+            updated: new Date(),
+            scrambleLocation: false
+        });
+        return user;
+    }
 });
